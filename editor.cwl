@@ -13,10 +13,9 @@ outputs:
 
 steps:
   template_seach:
-    run: tar-param.cwl
     in:
-      tarfile: tarball
-      extractfile: name_of_file_to_extract
+      tarfile: sequence
+      #extractfile: name_of_file_to_extract
     out: [extracted_file]
 
   compile:
