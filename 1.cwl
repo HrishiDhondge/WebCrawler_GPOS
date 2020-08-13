@@ -3,22 +3,14 @@ cwlVersion: v1.0
 class: Workflow
 
 inputs:
-  table_hits:
+  Sequence:
     type: File
-    label: output of infernal's cmsearch
+    label: Target sequence in Fasta format
     
 outputs:
- 5S_coordinates:
+ 5_Models:
    type: File
-   outputSource: extract_5S_coords/matched_seqs_with_coords
+   #outputSource: extract_5S_coords/matched_seqs_with_coords
+ DOPE_Graph:
+   type: File
 
-steps:
-  grep:
-    run: 2.cwl
-    in: { hits: table_hits }
-    out: [ 5Ss ]
-    
-  extract_5S_coords:
-    #run: extract-coords-from-cmsearch
-    in: { infernal_matches: grep/5Ss }
-    out: [ matched_seqs_with_coords ]
