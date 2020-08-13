@@ -4,18 +4,18 @@ cwlVersion: v1.0
 class: Workflow
 inputs:
   sequence: File
-#  name_of_file_to_extract: string
 
 outputs:
   models:
     type: File
-    outputSource: compile/classfile
+    outputSource: Chain-fixed_Models compile/classfile
 
 steps:
   template_seach:
+    run: tar-param.cwl
     in:
-      tarfile: sequence
-      #extractfile: name_of_file_to_extract
+      tarfile: tarball
+      extractfile: name_of_file_to_extract
     out: [extracted_file]
 
   compile:
