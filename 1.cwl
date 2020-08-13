@@ -22,9 +22,3 @@ steps:
     #run: extract-coords-from-cmsearch
     in: { infernal_matches: grep/5Ss }
     out: [ matched_seqs_with_coords ]
-$namespaces:
- s: http://schema.org/
-$schemas:
- - https://schema.org/version/latest/schema.rdf
-s:license: "https://www.apache.org/licenses/LICENSE-2.0"
-s:copyrightHolder: "EMBL - European Bioinformatics Institute"
