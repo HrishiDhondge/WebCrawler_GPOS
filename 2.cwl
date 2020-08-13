@@ -1,19 +1,20 @@
-#!/usr/bin/env
+#!/usr/bin/env cwl-runner
+
 cwlVersion: v1.0
 class: CommandLineTool
-requirements:
-  ResourceRequirement:
-    coresMax: 1
-    ramMin: 100  # just a default, could be lowered
-
+label: Example trivial wrapper for Java 9 compiler
+hints:
+  DockerRequirement:
+    dockerPull: openjdk:9.0.1-11-slim
+baseCommand: javac
+arguments: ["-d", $(runtime.outdir)]
 inputs:
-  hits: { type: File, streamable: true }
-
-stdin: ${inputs.hits.path}
-
-baseCommand: [ grep, RF00002 ]
-
-stdout: 5Ss  # helps with cwltool's --cache
-
-outputs: { 5Ss: { type: stdout } }
-
+  src:
+    type: File
+    inputBinding:
+      position: 1
+outputs:
+  classfile:
+    type: File
+    outputBinding:
+      glob: "*.class"
