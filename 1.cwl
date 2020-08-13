@@ -1,20 +1,26 @@
 #!/usr/bin/env cwl-runner
+
 cwlVersion: v1.0
 class: Workflow
-
 inputs:
-  Sequence:
-    type: File
-    label: Target sequence in Fasta format
-    
+  tarball: File
+  name_of_file_to_extract: string
+
 outputs:
- 5_Models:
-   type: File
-   outputSource: extract_5S_coords/matched_seqs_with_coords
- DOPE_Graph:
-   type: File
+  compiled_class:
+    type: File
+    outputSource: compile/classfile
 
 steps:
-  grep:
-    in: { Sequence }
-    out: [ 5Ss ]
+  untar:
+    run: tar-param.cwl
+    in:
+      tarfile: tarball
+      extractfile: name_of_file_to_extract
+    out: [extracted_file]
+
+  compile:
+    run: arguments.cwl
+    in:
+      src: untar/extracted_file
+    out: [classfile]
