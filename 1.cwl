@@ -10,7 +10,7 @@ inputs:
 outputs:
  5_Models:
    type: File
-   #outputSource: extract_5S_coords/matched_seqs_with_coords
+   outputSource: extract_5S_coords/matched_seqs_with_coords
  DOPE_Graph:
    type: File
 
