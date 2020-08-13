@@ -16,5 +16,5 @@ outputs:
 
 steps:
   grep:
-    in: { hits: table_hits }
+    in: { Sequence }
     out: [ 5Ss ]
