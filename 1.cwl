@@ -3,16 +3,16 @@
 cwlVersion: v1.0
 class: Workflow
 inputs:
-  sequence: File
-#  name_of_file_to_extract: string
+  tarball: File
+  name_of_file_to_extract: string
 
 outputs:
-  models:
+  compiled_class:
     type: File
     outputSource: compile/classfile
 
 steps:
-  template_seach:
+  untar:
     run: tar-param.cwl
     in:
       tarfile: tarball
@@ -20,7 +20,7 @@ steps:
     out: [extracted_file]
 
   compile:
-    run: 2.cwl
+    run: arguments.cwl
     in:
       src: untar/extracted_file
     out: [classfile]
