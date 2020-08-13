@@ -3,8 +3,8 @@
 cwlVersion: v1.0
 class: Workflow
 inputs:
-  tarball: File
-  name_of_file_to_extract: string
+  sequence: File
+#  name_of_file_to_extract: string
 
 outputs:
   compiled_class:
