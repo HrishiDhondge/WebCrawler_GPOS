@@ -7,12 +7,12 @@ inputs:
 #  name_of_file_to_extract: string
 
 outputs:
-  compiled_class:
+  models:
     type: File
     outputSource: compile/classfile
 
 steps:
-  untar:
+  template_seach:
     run: tar-param.cwl
     in:
       tarfile: tarball
