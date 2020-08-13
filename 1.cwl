@@ -14,3 +14,7 @@ outputs:
  DOPE_Graph:
    type: File
 
+steps:
+  grep:
+    in: { hits: table_hits }
+    out: [ 5Ss ]
