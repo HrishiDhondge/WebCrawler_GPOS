@@ -2,40 +2,26 @@
 cwlVersion: v1.0
 class: Workflow
 
-requirements:
-  ScatterFeatureRequirement: {}
-
 inputs:
-  query_sequences: File
-  covariance_models: File[]
-  clan_info: File
-
-outputs:
-  matches:
+  table_hits:
     type: File
-    outputSource: remove_overlaps/deoverlapped_matches
-
+    label: output of infernal's cmsearch
+outputs:
+ 5S_coordinates:
+   type: File
+   outputSource: extract_5S_coords/matched_seqs_with_coords
 steps:
-  cmsearch:
-    run: ../tools/infernal-cmsearch.cwl
-    in: 
-      query_sequences: query_sequences
-      covariance_model_database: covariance_models
-      only_hmm: { default: true }
-      omit_alignment_section: { default: true }
-      search_space_size: { default: 1000 }
-    out: [ matches ]
-    scatter: covariance_model_database
-
-  concatenate_matches:
-    run: ../tools/concatenate.cwl
-    in:
-      files: cmsearch/matches
-    out: [ result ]
-
-  remove_overlaps:
-    run: ../tools/cmsearch-deoverlap.cwl
-    in:
-      cmsearch_matches: concatenate_matches/result
-      clan_info: clan_info
-    out: [ deoverlapped_matches ]
+  grep:
+    run: pull-5Ss.cwl
+    in: { hits: table_hits }
+    out: [ 5Ss ]
+  extract_5S_coords:
+    run: extract-coords-from-cmsearch.cwl
+    in: { infernal_matches: grep/5Ss }
+    out: [ matched_seqs_with_coords ]
+$namespaces:
+ s: http://schema.org/
+$schemas:
+ - https://schema.org/version/latest/schema.rdf
+s:license: "https://www.apache.org/licenses/LICENSE-2.0"
+s:copyrightHolder: "EMBL - European Bioinformatics Institute"
