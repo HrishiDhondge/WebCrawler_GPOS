@@ -20,7 +20,7 @@ steps:
     out: [extracted_file]
 
   compile:
-    run: arguments.cwl
+    run: 2.cwl
     in:
       src: untar/extracted_file
     out: [classfile]
